@@ -1,12 +1,12 @@
-import "./App.css";
-import Agents from "./Agents";
+import { Outlet } from 'react-router-dom'
+import './App.css'
 
 function App() {
-    return (
-        <div className="min-h-screen flex flex-col items-center justify-center p-4">
-            <Agents />
-        </div>
-    );
+  return (
+    <div className="min-h-screen bg-background">
+      <Outlet />
+    </div>
+  )
 }
 
-export default App;
+export default App
