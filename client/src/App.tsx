@@ -1,12 +1,14 @@
 import { Outlet } from "react-router-dom";
-import { Toaster } from "./components/ui/toaster";
+import { ToastProvider, ToastViewport } from "@eliza/agent-config-frontend";
 import "./App.css";
 
 function App() {
     return (
         <div className="min-h-screen bg-background">
             <Outlet />
-            <Toaster />
+            <ToastProvider>
+                <ToastViewport />
+            </ToastProvider>
         </div>
     );
 }

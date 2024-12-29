@@ -2,6 +2,13 @@
   "name": "@eliza/agent-config-frontend",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
   "dependencies": {
     "@radix-ui/react-label": "^2.0.0",
     "@radix-ui/react-select": "^2.0.0",

@@ -1,6 +1,6 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-import AgentConfigPage from "./pages/AgentConfigPage";
+import { AgentConfigPage } from "./pages/AgentConfigPage";
 
 export const router = createBrowserRouter([
     {
