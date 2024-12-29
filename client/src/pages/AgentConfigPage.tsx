@@ -6,6 +6,8 @@ import { Textarea } from "../components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { Label } from "../components/ui/label";
 import { ModelProviderName } from "../types";
+import { useToast } from "../components/ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 interface CharacterConfig {
   name: string;
@@ -96,6 +98,40 @@ export function AgentConfigPage() {
 
   const handleBioChange = (value: string) => {
     handleInputChange("bio", value.split("\n"));
+  };
+
+  const { toast } = useToast();
+  const [isSaving, setIsSaving] = useState(false);
+
+  const handleSave = async () => {
+    setIsSaving(true);
+    try {
+      const response = await fetch("http://localhost:8000/api/agents", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(character),
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        toast({
+          title: "Success",
+          description: "Agent configuration saved successfully",
+          variant: "default",
+        });
+      } else {
+        throw new Error(result.detail || "Failed to save agent configuration");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to save agent configuration",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -261,10 +297,18 @@ export function AgentConfigPage() {
           </div>
 
           <Button 
-            onClick={() => console.log("Save configuration:", character)}
+            onClick={handleSave}
             className="w-full"
+            disabled={isSaving}
           >
-            Save Configuration
+            {isSaving ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              "Save Configuration"
+            )}
           </Button>
         </CardContent>
       </Card>
