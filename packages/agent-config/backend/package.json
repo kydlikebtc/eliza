@@ -1,0 +1,10 @@
+{
+  "name": "@eliza/agent-config-backend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "fastapi": "^0.100.0",
+    "pydantic": "^2.0.0",
+    "psycopg": "^3.0.0"
+  }
+}
