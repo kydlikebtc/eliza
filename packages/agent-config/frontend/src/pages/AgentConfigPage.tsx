@@ -1,24 +1,24 @@
-import { useState } from "react";
-import { Input } from "../components/ui/input";
-import { Button } from "../components/ui/button";
+import { useState, ChangeEvent } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "../components/ui/select";
-import { Textarea } from "../components/ui/textarea";
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "../components/ui/card";
-import { Label } from "../components/ui/label";
-import { ModelProviderName } from "../types";
-import { useToast } from "../components/ui/use-toast";
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { ModelProviderName } from "@/types";
+import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
 
 interface CharacterConfig {
@@ -106,12 +106,12 @@ export function AgentConfigPage() {
         },
     });
 
-    const handleInputChange = (field: string, value: any) => {
+    const handleInputChange = (field: keyof CharacterConfig, value: any) => {
         setCharacter((prev) => ({ ...prev, [field]: value }));
     };
 
-    const handleBioChange = (value: string) => {
-        handleInputChange("bio", value.split("\n"));
+    const handleBioChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        handleInputChange("bio", e.target.value.split("\n"));
     };
 
     const { toast } = useToast();
@@ -179,7 +179,7 @@ export function AgentConfigPage() {
                         <Label htmlFor="modelProvider">Model Provider</Label>
                         <Select
                             value={character.modelProvider}
-                            onValueChange={(value) =>
+                            onValueChange={(value: ModelProviderName) =>
                                 handleInputChange("modelProvider", value)
                             }
                         >
@@ -210,7 +210,7 @@ export function AgentConfigPage() {
                         <Textarea
                             id="bio"
                             value={character.bio.join("\n")}
-                            onChange={(e) => handleBioChange(e.target.value)}
+                            onChange={handleBioChange}
                             placeholder="Enter agent biography (one line per entry)"
                             className="h-32"
                         />
@@ -244,7 +244,7 @@ export function AgentConfigPage() {
                         <Textarea
                             id="lore"
                             value={character.lore.join("\n")}
-                            onChange={(e) =>
+                            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
                                 handleInputChange(
                                     "lore",
                                     e.target.value.split("\n")
@@ -260,7 +260,7 @@ export function AgentConfigPage() {
                         <Textarea
                             id="topics"
                             value={character.topics.join("\n")}
-                            onChange={(e) =>
+                            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
                                 handleInputChange(
                                     "topics",
                                     e.target.value.split("\n")
@@ -276,7 +276,7 @@ export function AgentConfigPage() {
                         <Textarea
                             id="adjectives"
                             value={character.adjectives.join("\n")}
-                            onChange={(e) =>
+                            onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
                                 handleInputChange(
                                     "adjectives",
                                     e.target.value.split("\n")
@@ -295,7 +295,9 @@ export function AgentConfigPage() {
                                 <Textarea
                                     id="style-all"
                                     value={character.style.all.join("\n")}
-                                    onChange={(e) =>
+                                    onChange={(
+                                        e: ChangeEvent<HTMLTextAreaElement>
+                                    ) =>
                                         setCharacter((prev) => ({
                                             ...prev,
                                             style: {

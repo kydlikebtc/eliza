@@ -1,14 +1,14 @@
 {
-  "name": "@eliza/agent-config",
-  "version": "0.1.0",
-  "private": true,
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
-  "scripts": {
-    "build": "pnpm -r build",
-    "dev": "pnpm -r dev",
-    "lint": "pnpm -r lint"
-  }
+    "name": "@eliza/agent-config",
+    "version": "0.1.0",
+    "private": true,
+    "workspaces": [
+        "frontend",
+        "backend"
+    ],
+    "scripts": {
+        "build": "pnpm -r build",
+        "dev": "pnpm -r dev",
+        "lint": "pnpm -r lint"
+    }
 }
